@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IIT Palakkad Food Diary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-style: italic; /* Set font style to italic */
+            margin: 0;
+            padding: 20px;
+            overflow: hidden; /* Prevents scrollbars from showing */
+        }
+        @keyframes slide {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.example.com/image1.jpg'), url('https://www.example.com/image2.jpg'); /* Replace with valid image URLs */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            animation: slide 30s linear infinite;
+            z-index: -1; /* Send it to the background */
+        }
+        header {
+            text-align: center;
+            background-color: rgba(139, 69, 19, 0.8); /* Brown color */
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #8B4513; /* Brown color */
+            color: white;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .form-container {
+            margin-top: 20px;
+        }
+        input {
+            padding: 10px;
+            margin: 5px 0;
+            width: calc(100% - 22px);
+        }
+        .delete-button {
+            background-color: #dc3545;
+            margin-left: 10px;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <header>
+        <h1>IIT Palakkad Food Diary</h1>
+        <p>Track your meals and stay healthy!</p>
+    </header>
+    <div class="container">
+        <h2>Today's Entries</h2>
+        <table id="foodDiary">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Meal</th>
+                    <th>Food Items</th>
+                    <th>Notes</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Breakfast</td>
+                    <td>Oatmeal</td>
+                    <td>Oats, Milk, Banana</td>
+                    <td>Filling and nutritious</td>
+                    <td><button class="delete-button" onclick="deleteEntry(this)">Delete</button></td>
+                </tr>
+                <tr>
+                    <td>Lunch</td>
+                    <td>Vegetable Curry</td>
+                    <td>Rice, Mixed Vegetables</td>
+                    <td>Homemade, very tasty!</td>
+                    <td><button class="delete-button" onclick="deleteEntry(this)">Delete</button></td>
+                </tr>
+                <tr>
+                    <td>Snack</td>
+                    <td>Fruit</td>
+                    <td>Apple</td>
+                    <td>Healthy choice</td>
+                    <td><button class="delete-button" onclick="deleteEntry(this)">Delete</button></td>
+                </tr>
+                <tr>
+                    <td>Dinner</td>
+                    <td>Pasta</td>
+                    <td>Pasta, Tomato Sauce, Cheese</td>
+                    <td>Comfort food</td>
+                    <td><button class="delete-button" onclick="deleteEntry(this)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="form-container">
+            <h2>Add New Entry</h2>
+            <form id="foodEntryForm">
+                <input type="time" id="time" required>
+                <input type="text" id="meal" placeholder="Meal Type (e.g., Breakfast)" required>
+                <input type="text" id="foodItems" placeholder="Food Items" required>
+                <input type="text" id="notes" placeholder="Notes (optional)">
+                <button type="submit">Add Entry</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 IIT Palakkad</p>
+    </footer>
+
+    <script>
+        document.getElementById('foodEntryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const time = document.getElementById('time').value;
+            const meal = document.getElementById('meal').value;
+            const foodItems = document.getElementById('foodItems').value;
+            const notes = document.getElementById('notes').value;
+
+            const table = document.getElementById('foodDiary').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+
+            newRow.innerHTML = `
+                <td>${time}</td>
+                <td>${meal}</td>
+                <td>${foodItems}</td>
+                <td>${notes}</td>
+                <td><button class="delete-button" onclick="deleteEntry(this)">Delete</button></td>
+            `;
+
+            // Reset form
+            document.getElementById('foodEntryForm').reset();
+        });
+
+        function deleteEntry(button) {
+            const row = button.parentElement.parentElement;
+            row.parentElement.removeChild(row);
+        }
+    </script>
+</body>
+</html>
